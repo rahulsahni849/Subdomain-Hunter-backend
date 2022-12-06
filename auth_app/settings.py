@@ -167,8 +167,10 @@ SIMPLE_JWT = {
 }
 
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000"
-]
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:8000"
+# ]
+
+CORS_ALLOW_ALL_ORIGINS= True
 
 AUTH_USER_MODEL = 'user_auth.User'

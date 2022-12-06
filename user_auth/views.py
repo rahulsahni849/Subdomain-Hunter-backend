@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from user_auth.serializers import UserRegisterSerializer,UserLoginSerializer,UserProfileSerializer
+from user_auth.serializers import UserRegisterSerializer,UserLoginSerializer,UserProfileSerializer,CustomJWTTokenSerializer
 from django.contrib.auth import authenticate
 from user_auth.renderers import CustomRenderer
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -36,6 +36,7 @@ class UserLoginViews(APIView):
 class UserProfileViews(APIView):
     renderer_classes=[CustomRenderer]
     permission_classes=[IsAuthenticated]
+    serializer_class=[CustomJWTTokenSerializer]
     def get(self,request):
         print(request)
         try:
@@ -43,12 +44,11 @@ class UserProfileViews(APIView):
             return Response({'user':serializer.data,'status':status.HTTP_200_OK})
         except Exception:
             return Response({'error':'internal server error','status':status.HTTP_400_BAD_REQUEST})
-        
 
-        #return Response({"error":serializer.errors,'status':status.HTTP_400_BAD_REQUEST})
 
 def get_tokens_for_user(user):
-    refresh = RefreshToken.for_user(user)
+    refresh = CustomJWTTokenSerializer.get_token(user)
+    print(refresh)
     return {
         'refresh': str(refresh),
         'access': str(refresh.access_token),
