@@ -17,8 +17,6 @@ class UserRegisterationViews(APIView):
             return Response({"msg":f"Registrations successful for {user.email}","token":token,"status":status.HTTP_201_CREATED})
         return Response(serializer.errors)
 
-
-
 class UserLoginViews(APIView):
     renderer_classes=[CustomRenderer]
     def post(self,request,format=None):
@@ -27,11 +25,11 @@ class UserLoginViews(APIView):
             email = serializer.data.get('email')
             password = serializer.data.get('password')
             user = authenticate(email=email,password=password)
-            token = get_tokens_for_user(user)
             if(user is not None):
+                token = get_tokens_for_user(user)
                 return Response({"msg":f"login successful for {user.email}","token":token,"status":status.HTTP_200_OK})
             else:
-                return Response({"error":f"login failed","status":status.HTTP_404_NOT_FOUND})
+                return Response({"error":f"login failed","status":status.HTTP_401_UNAUTHORIZED})
         return Response({"error":serializer.errors,'status':status.HTTP_400_BAD_REQUEST}
         )
 
@@ -48,8 +46,6 @@ class UserProfileViews(APIView):
         
 
         #return Response({"error":serializer.errors,'status':status.HTTP_400_BAD_REQUEST})
-
-
 
 def get_tokens_for_user(user):
     refresh = RefreshToken.for_user(user)

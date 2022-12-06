@@ -42,7 +42,7 @@ class User(AbstractBaseUser):
         max_length=255,
         unique=True,
     )
-    name=models.CharField(max_length=100)
+    name=models.CharField(max_length=100,unique=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     create_at = models.DateField(auto_now_add=True)
