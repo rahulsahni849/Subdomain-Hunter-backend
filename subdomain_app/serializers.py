@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from user_auth.models import User
+from subdomain_app.models import SubdomainDetails
 
-class UserProfileSerializer(serializers.ModelSerializer):
+class DomainSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields=['id','name','email']
+        model = SubdomainDetails
+        fields = '__all__'

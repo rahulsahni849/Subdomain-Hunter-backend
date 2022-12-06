@@ -1,8 +1,5 @@
-grievances.bitmesra.ac.in
-ns1.bitmesra.ac.in
-ns2.bitmesra.ac.in
-patna.bitmesra.ac.in
-polyadmission.bitmesra.ac.in
-purchase.bitmesra.ac.in
-services.bitmesra.ac.in
-univpoly.bitmesra.ac.in
+asr.hakhub.net
+bwapp.hakhub.net
+js.hakhub.net
+main.hakhub.net
+shop.hakhub.net

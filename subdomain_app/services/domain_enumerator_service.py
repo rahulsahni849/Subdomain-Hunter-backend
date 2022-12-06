@@ -18,13 +18,13 @@ def subdomain_extractor(domain,filename=None):
         future = executor.submit(domain_search, domain,filename)
         return_value = future.result()
         subdomains = return_value
-    # print("Printing Subdomains".center(80,'-'))
+    print("Printing Subdomains".center(80,'-'))
     filtered_subdomains=[]
     for i in subdomains:
         if(i.startswith("www")):
             continue
         filtered_subdomains.append(i)
-    # print(filtered_subdomains)
+    print(filtered_subdomains)
     with open(filename,"w+") as f:
         f.write("\n".join(filtered_subdomains))
     return filtered_subdomains
@@ -32,7 +32,7 @@ def subdomain_extractor(domain,filename=None):
 
 def subdomain_detail_extractor(filename):
     # print("Printing Subdomains detailed output".center(80,'-'))
-    output = subprocess.check_output(f'httpx -l {filename} -json -silent',shell=False).splitlines()
+    output = subprocess.check_output(f'httpx -l {filename} -cname -td -json -silent',shell=False).splitlines()
     subdomain_detail=[]
     for i in output:
         data = json.loads(i.decode())
@@ -49,14 +49,14 @@ def subdomain_detail_extractor(filename):
             "response_time":data.get("time",""),
         }
         subdomain_detail.append(temp_dict)
+    print(subdomain_detail)
     return subdomain_detail
-    # print(subdomain_detail)
+    
     
 
 def subdomain_port_extractor(filename):
     # print("Printing Subdomain ports".center(80,'-'))
     output = subprocess.check_output(f'naabu -l {filename} -json -silent',shell=False).splitlines()
-    # print(output)
     ports_list=dict()
     for i in output:
         data = json.loads(i.decode())
@@ -64,8 +64,9 @@ def subdomain_port_extractor(filename):
             ports_list[data["host"]].append(data.get("port",""))
         else:
             ports_list[data["host"]]=[data.get("port","")]
-    return ports_list
     # print(ports_list)
+    return ports_list
+    
 
 
 def subdomain_image_extractor(filename,directory_of_screenshots,subdomains):
@@ -78,8 +79,9 @@ def subdomain_image_extractor(filename,directory_of_screenshots,subdomains):
             "screenshot_path":"https://"+i+".png"
             }
         screenshot_path_list.append(temp_dict)
-    return screenshot_path_list
     # print(screenshot_path_list)
+    return screenshot_path_list
+    
     
 
 def domain_enumerator(domain):
