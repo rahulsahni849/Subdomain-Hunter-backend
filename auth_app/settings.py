@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework',
     'user_auth',
+    'subdomain_app'
 ]
 
 MIDDLEWARE = [

@@ -36,7 +36,6 @@ class UserLoginViews(APIView):
 class UserProfileViews(APIView):
     renderer_classes=[CustomRenderer]
     permission_classes=[IsAuthenticated]
-    serializer_class=[CustomJWTTokenSerializer]
     def get(self,request):
         print(request)
         try:
@@ -48,7 +47,7 @@ class UserProfileViews(APIView):
 
 def get_tokens_for_user(user):
     refresh = CustomJWTTokenSerializer.get_token(user)
-    print(refresh)
+    # print(refresh)
     return {
         'refresh': str(refresh),
         'access': str(refresh.access_token),
