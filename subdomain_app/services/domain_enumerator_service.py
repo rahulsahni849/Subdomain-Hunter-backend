@@ -90,6 +90,8 @@ def domain_enumerator(domain):
     # domain="hakhub.net"
     directory_of_screenshots="images"
     subdomains = subdomain_extractor(domain,filename)
+    if len(subdomains)==0:
+        return result
 
     #subdomain detail extrator
     # subdomain_detail_extractor(filename)
@@ -100,8 +102,7 @@ def domain_enumerator(domain):
     #subdomain image extractor
     # subdomain_image_extractor(filename,directory_of_screenshots,subdomains)
     with concurrent.futures.ProcessPoolExecutor(4) as executor:
-        # subdomain_extractor_fn = executor.submit(subdomain_extractor, domain,filename)
-        # domains=subdomain_extractor_fn.result()
+    
         detail_extractor=executor.submit(subdomain_detail_extractor,filename)
         port_extractor=executor.submit(subdomain_port_extractor,filename)
         image_extractor=executor.submit(subdomain_image_extractor,filename,directory_of_screenshots,subdomains)
