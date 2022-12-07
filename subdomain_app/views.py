@@ -22,17 +22,20 @@ class DomainEnumeratorView(APIView):
         domain_name = request.data.get('name').strip()
         # print(domain_name)
         response=None
+        serializer = JsonSerializer()
         try:
             domain=DomainSearchHistory.objects.get(domain_name=domain_name)
             subdomains=SubdomainDetails.objects.filter(domain_name=domain)
-            serializer = JsonSerializer()
+            
             response= serializer.serialize(subdomains)
+            print(response)
             return Response({"result":json.loads(response),'status':status.HTTP_200_OK})
         except ObjectDoesNotExist:
             data = self.domain_data_save(domain_name)
             if(data=="error"):
                 return Response({"error":"enumerator service error",'status':status.HTTP_200_OK})
-            response = serialize('json', data)
+            response= serializer.serialize(data)
+            print(response)
             return Response({"result":json.loads(response),'status':status.HTTP_200_OK})
         # except Exception:
         #     return Response({"data":Exception,'status':status.HTTP_500_INTERNAL_SERVER_ERROR})

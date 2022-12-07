@@ -49,7 +49,7 @@ def subdomain_detail_extractor(filename):
             "response_time":data.get("time",""),
         }
         subdomain_detail.append(temp_dict)
-    print(subdomain_detail)
+    # print(subdomain_detail)
     return subdomain_detail
     
     
