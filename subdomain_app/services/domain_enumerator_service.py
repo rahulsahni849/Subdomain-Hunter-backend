@@ -76,7 +76,7 @@ def subdomain_image_extractor(filename,directory_of_screenshots,subdomains):
     for i in subdomains:
         temp_dict={
             "subdomain_name":i,
-            "screenshot_path":"https://"+i+".png"
+            "screenshot_path":"media/images/https-"+i+".png"
             }
         screenshot_path_list.append(temp_dict)
     # print(screenshot_path_list)
@@ -85,10 +85,10 @@ def subdomain_image_extractor(filename,directory_of_screenshots,subdomains):
     
 
 def domain_enumerator(domain):
-    filename="temp_test.txt"
+    filename="static/temp_test.txt"
     result=[]
     # domain="hakhub.net"
-    directory_of_screenshots="images"
+    directory_of_screenshots="media/images"
     subdomains = subdomain_extractor(domain,filename)
     if len(subdomains)==0:
         return result
